@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>React Basics</title>
+    <title>React</title>
   </head>
   <body>
     <div class="js-container"></div>
@@ -10,15 +10,11 @@
 
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
-      const button = <button> Good Job! </button>;
-      const paragraph = <p> Some Paragraphs. </p>;
+      let productCost = 10 + 2 * 8
+      console.log(productCost);
       const div = (
         <div>
-          <button> Good Job! </button>
-          <p> My name is Nabin </p>
-          <p> Cotton Socks </p>
-          <p> Price: $10 </p>
-          <button> Add to cart </button>
+          <p> Product Cost: ${productCost} </p>
         </div>
       );
       const container = document.querySelector(".js-container");
