@@ -11,7 +11,7 @@
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
 
-      function ChatInput({chatMessages, setChatMessages, isLoading, setIsLoading}) {
+      function ChatInput({chatMessages, setChatMessages}) {
 
         const [inputText, setInputText] = React.useState("");
 
@@ -19,17 +19,12 @@
           setInputText(event.target.value);
         }
 
-        function handleKeyDown (event) {
-          if(event.key === "Enter") {
-            sendMessage();
-          }
-          if(event.key === "Escape") {
-            setInputText("");
-          }
+        function sendMessageKeyboard (event) {
+            if(event.key === "Enter") {
+                sendMessage();
+            }
         }
-
         async function sendMessage() {
-          
           const newChatMessages = [
             ...chatMessages,
             {
@@ -38,19 +33,10 @@
               id: crypto.randomUUID(),
             },
           ]
-          
           setChatMessages(newChatMessages);
-          setInputText('');
-          setIsLoading(true);
-          setChatMessages([
-            ...newChatMessages,
-            {
-              message: "Loading..",
-              sender: "robot",
-              id: crypto.randomUUID(),
-            },
-          ]);
+
           const response = await Chatbot.getResponseAsync(inputText);
+
           setChatMessages([
             ...newChatMessages,
             {
@@ -59,8 +45,7 @@
               id: crypto.randomUUID(),
             },
           ]);
-          setIsLoading(false);
-          
+          setInputText('');
         }
         return (
           <>
@@ -68,10 +53,10 @@
               placeholder="Send a message to ChatBot"
               size="30"
               onChange={saveInputText}
-              onKeyDown={handleKeyDown}
+              onKeyDown = {sendMessageKeyboard}
               value = {inputText}
             />
-            <button onClick={(!isLoading && inputText) && sendMessage}>Send</button>
+            <button onClick={sendMessage}>Send</button>
           </>
         );
       }
@@ -118,7 +103,6 @@
       }
 
       function App() {
-        const [isLoading, setIsLoading] = React.useState(false);
         const [chatMessages, setChatMessages] = React.useState([
           {
             message: "hello",
@@ -149,8 +133,6 @@
             <ChatInput 
               chatMessages = {chatMessages}
               setChatMessages = {setChatMessages}
-              isLoading = {isLoading}
-              setIsLoading = {setIsLoading}
             />
             <ChatMessages 
               chatMessages = {chatMessages}
