@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .welcome-text {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .input-text {
+            padding: 10px 15px;
+            border-radius: 10px;
+            border-width: 1px;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .primary-button {
+            background-color: rgb(0, 123, 255);
+            color: white;
+            font-size: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            margin-right: 5px;
+        }
+
+        .password-button {
+            margin-left: 5px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="js-container"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+        
+        function LoginForm({showPassword, setShowPassword}) {
+            
+            function tooglePassword() {
+                setShowPassword(!showPassword)
+            }
+            return(
+                <>
+                    <p className= "welcome-text">Hello! Welcome to the website </p>
+                    <div><input className="input-text" placeholder="Email"/></div>
+                    <input className="input-text" placeholder="Password" type={showPassword ? "password" : "text"}/>
+                    <button 
+                        className="password-button" 
+                        onClick={tooglePassword}>
+                        {showPassword ? "Show" : "Hide" }
+                    </button>
+                    <div>
+                        <button className="primary-button">Login</button>
+                        <button className="primary-button">Signup</button>
+                    </div>
+                </>
+            );
+        }
+        function App() {
+            const[showPassword, setShowPassword] = React.useState(true);
+            return(
+                <>
+                    <LoginForm 
+                        showPassword = {showPassword}
+                        setShowPassword ={setShowPassword}
+                    />
+                </>
+            );
+        }
+        const container = document.querySelector(".js-container");
+        ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>

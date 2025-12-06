@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React</title>
+    <style>
+        .toogle-button {
+            background-color: rgb(25, 135, 84);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        .toogle-button-off {
+            background-color: rgb(220, 53, 69);
+        }
+    </style>
+  </head>
+  <body>
+    <div class="js-container"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+        function ToogleButton({isButtonOn, setIsButtonOn}) {
+            
+            function toggleButton() {
+                setIsButtonOn(!isButtonOn)
+            }
+            return(
+                <button className={isButtonOn ? "toogle-button" : "toogle-button toogle-button-off"} onClick={toggleButton}>
+                    {isButtonOn ? 'On' : 'Off'}
+                </button>
+            );
+        }
+
+        function App() {
+            const [isButtonOn, setIsButtonOn] = React.useState(true);
+            return(
+                <>
+                    <ToogleButton 
+                        isButtonOn = {isButtonOn}
+                        setIsButtonOn = {setIsButtonOn}
+                    />
+                </>
+            );
+        }
+        const container = document.querySelector(".js-container");
+        ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
