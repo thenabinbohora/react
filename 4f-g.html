@@ -10,17 +10,32 @@
     <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
-        const container = document.querySelector(".js-container");
-        const root = ReactDOM.createRoot(container);
-        setInterval(() => {
-            const currentTime = dayjs().format('HH:mm:ss')
-            const div = (
-                <div>
-                    <p>Current time: {currentTime}</p>
-                </div>
+
+      function Clock() {
+          const [time, setTime] = React.useState(dayjs().format('HH:mm:ss'));
+          React.useEffect(() => {
+              const intervalId = setInterval(() => {
+                  setTime(dayjs().format('HH:mm:ss'));
+                  console.log('Tick');
+              }, 1000);
+              return () => clearInterval(intervalId);
+          });
+          return (
+              <div>
+                  <p>Current time: {time}</p>
+              </div>
+          );
+      }
+        function App() {
+            
+            return(
+                <>
+                    <Clock />
+                </>
             );
-            root.render(div);
-        }, 1000);
+        }
+        const container = document.querySelector(".js-container");
+        ReactDOM.createRoot(container).render(<App />);
         
     </script>
   </body>

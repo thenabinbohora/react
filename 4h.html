@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React</title>
+    <style>
+        body {
+            margin: 0px 8px;
+        }
+        button {
+            background-color: rgb(25, 135, 84);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            margin-left: 10px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgb(222, 222, 222);
+        }
+    </style>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+      function App() {
+        const [count, setCount] = React.useState(0);
+        const [auto, setAuto] = React.useState(false);
+        const intervalRef = React.useRef(null);
+
+        function resetButton() {
+          setCount(0);
+        }
+
+        function clickButton() {
+          setCount(c => c + 1);
+        }
+
+        React.useEffect(() => {
+          if (auto) {
+            intervalRef.current = setInterval(() => {
+              setCount(c => c + 1);
+            }, 1000);
+          } else if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
+          return () => {
+            if (intervalRef.current) {
+              clearInterval(intervalRef.current);
+              intervalRef.current = null;
+            }
+          };
+        }, [auto]);
+
+        return (
+          <div className="container">
+            {count === 1 ? (
+              <button onClick={clickButton}>Clicked {count} time</button>
+            ) : (
+              <button onClick={clickButton}>Clicked {count} times</button>
+            )}
+            <button onClick={resetButton}>Reset</button>
+            <button onClick={() => setAuto(a => !a)}>{auto ? 'Stop AutoClick' : 'Start AutoClick'}</button>
+          </div>
+        );
+      }
+
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
