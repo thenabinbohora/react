@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useState } from "react";
 import { Chatbot } from "supersimpledev";
 import './ChatInput.css';
@@ -28,6 +29,7 @@ export function ChatInput({ chatMessages, setChatMessages, isLoading, setIsLoadi
         message: trimmedInput,
         sender: "user",
         id: crypto.randomUUID(),
+        timestamp: dayjs(dayjs().valueOf()).format("h:mm A"),
       },
     ];
 
@@ -40,6 +42,7 @@ export function ChatInput({ chatMessages, setChatMessages, isLoading, setIsLoadi
         message: <img src={LoadingStateImage} className="loading-img" />,
         sender: "robot",
         id: crypto.randomUUID(),
+        timestamp: dayjs(dayjs().valueOf()).format("h:mm A"),
       },
     ]);
     const response = await Chatbot.getResponseAsync(trimmedInput);
@@ -49,6 +52,7 @@ export function ChatInput({ chatMessages, setChatMessages, isLoading, setIsLoadi
         message: response,
         sender: "robot",
         id: crypto.randomUUID(),
+        timestamp: dayjs(dayjs().valueOf()).format("h:mm A"),
       },
     ]);
     setIsLoading(false);
@@ -72,6 +76,16 @@ export function ChatInput({ chatMessages, setChatMessages, isLoading, setIsLoadi
         className="send-button"
       >
         Send
+      </button>
+      <button
+        onClick={() => {
+          setChatMessages([]);
+          setInputText("");
+          localStorage.removeItem('messages');
+        }}
+        className="clear-button"
+      >
+        Clear
       </button>
     </div>
   );

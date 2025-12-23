@@ -2,7 +2,7 @@ import RobotProfileImage from "../assets/robot.png";
 import UserProfileImage from "../assets/user.png";
 import './ChatMessage.css';
 
-export function ChatMessage({ message, sender }) {
+export function ChatMessage({ message, sender, timestamp }) {
   //const message = props.message;
   //const sender = props.sender;
   //const {message, sender} = props;
@@ -24,7 +24,10 @@ export function ChatMessage({ message, sender }) {
       {sender === "robot" && (
         <img src={RobotProfileImage} className="chat-message-profile" />
       )}
-      <div className="chat-message-text">{message}</div>
+      <div className="chat-message-text">{message}
+        <div className="chat-message-timestamp">{timestamp}</div>
+      </div>
+      
       {sender === "user" && (
         <img src={UserProfileImage} className="chat-message-profile" />
       )}
