@@ -3,7 +3,8 @@ import { CheckoutHeader } from './CheckoutHeader.jsx'
 export function CheckoutPage() {
   return (
     <>
-        <title>Checkout</title>
+      <link rel="icon" type="image/svg+xml" href="/cart-favicon.png" />
+      <title>Checkout</title>
       
       <CheckoutHeader />
       <div className="checkout-page">
