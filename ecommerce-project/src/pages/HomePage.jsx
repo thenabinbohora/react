@@ -1,10 +1,15 @@
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Header } from '../components/Header'
-import { products } from '../../data/products'
 import "./HomePage.css";
 export function HomePage() {
-  axios.get('https://improved-xylophone-qwqvvvwjv7rc4qw9-3000.app.github.dev/api/products')
-    .then((response) => console.log(response.data))
+  const [products, setProducts] = useState([]);
+  useEffect(() =>{
+    axios.get('https://improved-xylophone-qwqvvvwjv7rc4qw9-3000.app.github.dev/api/products')
+    .then((response) => setProducts(response.data))
+    .catch((error) => console.error('Error fetching products:', error))
+  }, []);
+  
   return (
     <>
       <link rel="icon" type="image/svg+xml" href="/home-favicon.png" />
