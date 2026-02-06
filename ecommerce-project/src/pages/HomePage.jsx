@@ -6,9 +6,9 @@ export function HomePage() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   useEffect(() =>{
-    axios.get('https://improved-xylophone-qwqvvvwjv7rc4qw9-3000.app.github.dev/api/products')
+    axios.get('/api/products')
     .then((response) => setProducts(response.data))
-    axios.get('https://improved-xylophone-qwqvvvwjv7rc4qw9-3000.app.github.dev/api/cart-items')
+    axios.get('/api/cart-items')
     .then((response) => setCart(response.data))
   }, []);
   
