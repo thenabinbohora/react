@@ -4,17 +4,19 @@ import { Header } from '../components/Header'
 import "./HomePage.css";
 export function HomePage() {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
   useEffect(() =>{
     axios.get('https://improved-xylophone-qwqvvvwjv7rc4qw9-3000.app.github.dev/api/products')
     .then((response) => setProducts(response.data))
-    .catch((error) => console.error('Error fetching products:', error))
+    axios.get('https://improved-xylophone-qwqvvvwjv7rc4qw9-3000.app.github.dev/api/cart-items')
+    .then((response) => setCart(response.data))
   }, []);
   
   return (
     <>
       <link rel="icon" type="image/svg+xml" href="/home-favicon.png" />
       <title>Ecommerce Project</title>
-      <Header />
+      <Header cart = {cart}/>
 
       <div className="home-page">
         <div className="products-grid">
