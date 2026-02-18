@@ -11,8 +11,8 @@ export function CartItemDetails({ cartItem }) {
         </div>
         <div className="product-quantity">
           <span>
-            Quantity:{" "}
-            <span className="quantity-label">{cartItem.Quantity}</span>
+            Quantity:{}
+            <span className="quantity-label">{cartItem.quantity}</span>
           </span>
           <span className="update-quantity-link link-primary">Update</span>
           <span className="delete-quantity-link link-primary">Delete</span>
